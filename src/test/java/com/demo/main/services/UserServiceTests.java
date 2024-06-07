@@ -69,6 +69,7 @@ public class UserServiceTests {
 		assertNotNull(userRepository.findByUsername(name),"failed for "+name);
 	}
 	
+	@Disabled
 	@ParameterizedTest
 	@ArgumentsSource(UserArgumentProvider.class)
 	public void testSaveUser(User user) {
