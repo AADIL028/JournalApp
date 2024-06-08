@@ -4,18 +4,16 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import javax.management.RuntimeErrorException;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.main.entity.JournalEntry;
 import com.demo.main.entity.User;
 import com.demo.main.repositeries.JournalRepository;
 
-@Component
+@Service
 public class JournalService {
 
 	@Autowired

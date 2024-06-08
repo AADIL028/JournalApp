@@ -1,18 +1,15 @@
 package com.demo.main.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.session.RedisSessionProperties.ConfigureAction;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.UserDetailsManager;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.demo.main.entity.User;
 import com.demo.main.repositeries.UserRepository;
 
-@Component
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
 	@Autowired

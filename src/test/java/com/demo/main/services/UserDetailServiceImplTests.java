@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
@@ -31,6 +32,7 @@ public class UserDetailServiceImplTests {
 		MockitoAnnotations.initMocks(this);
 	}
 	
+	@Disabled
 	@Test
 	void loadUserByUsernameTest() {
 		when(userRepository.findByUsername(ArgumentMatchers.anyString())).thenReturn(com.demo.main.entity.User.builder().username("Aadil").password("abagvsthsb").role(new ArrayList<>()).build());

@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.main.entity.User;
 import com.demo.main.repositeries.UserRepository;
+import com.demo.main.response.WeatherResponse;
+import com.demo.main.response.WeatherResponse.Main;
 import com.demo.main.services.JournalService;
 import com.demo.main.services.UserService;
+import com.demo.main.services.WeatherService;
 
 @RestController
 @RequestMapping("/user")
@@ -30,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private WeatherService weatherService;
 	
 //	@GetMapping
 //	public List<User> getAll(){
@@ -56,5 +62,18 @@ public class UserController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		userRepository.deleteByUsername(authentication.getName());
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> greeting(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		WeatherResponse response = weatherService.getWeather("Ahmedabad");
+		String greeting = "";
+		if(response != null) {
+			//converting kelvin to Celsius.
+			double feelsLike = response.getMain().getFeelsLike() - 273.15;
+			greeting=", Weather feels like :- " + String.format("%.2f", feelsLike);
+		}
+		return new ResponseEntity<>("Hi, "+authentication.getName()+greeting,HttpStatus.OK);
 	}
 }
