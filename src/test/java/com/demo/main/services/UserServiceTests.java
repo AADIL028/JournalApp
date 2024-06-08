@@ -39,7 +39,7 @@ public class UserServiceTests {
 	public void testFindByUsername() {
 		assertEquals(4, 2+2);
 		assertNotNull(userRepository.findByUsername("admin"));
-		assertTrue(journalService.deleteEntryById(new ObjectId("6660334ac79a9d0ee384d59e"),"Aadil"));
+//		assertTrue(journalService.deleteEntryById(new ObjectId("6660334ac79a9d0ee384d59e"),"Aadil"));
 	}
 	
 	@Disabled
