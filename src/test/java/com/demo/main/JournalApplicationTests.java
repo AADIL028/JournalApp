@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class JournalApplicationTests {
 
-	@Disabled
+
 	@Test
 	void contextLoads() {
 	}
