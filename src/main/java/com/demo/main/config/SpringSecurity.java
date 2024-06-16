@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,7 +15,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.demo.main.filter.JwtFilter;
 import com.demo.main.services.UserDetailServiceImpl;
 
 @Configuration
@@ -24,6 +27,9 @@ public class SpringSecurity {
 
 	@Autowired
 	private UserDetailServiceImpl userDetailsService;
+	
+	@Autowired
+	private JwtFilter jwtFilter;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,9 +37,9 @@ public class SpringSecurity {
 						.requestMatchers("/journal/**", "/user/**").authenticated()
 						.requestMatchers("/admin/**").hasRole("ADMIN")
 						.anyRequest().permitAll())
-				.httpBasic(Customizer.withDefaults())
 				.csrf(AbstractHttpConfigurer::disable);
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 
@@ -50,6 +56,10 @@ public class SpringSecurity {
 		return new BCryptPasswordEncoder();
 	}
 	
+	@Bean
+    public AuthenticationManager authenticationManagerJwt(AuthenticationConfiguration auth) throws Exception {
+        return auth.getAuthenticationManager();
+    }
 	
 //	@Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
