@@ -29,10 +29,3 @@ public class JournalApplication {
 		return new RestTemplate();
 	}
 }
-
-//atlas pass :- Mongo@20
-//paadil820
-//VqdhhUtbgjYDP023
-//VqdhhUtbgjYDP023
-//mongodb+srv://paadil820:<password>@cluster0.qqm23hk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-//p94yM6J0Q0rFmI1K
